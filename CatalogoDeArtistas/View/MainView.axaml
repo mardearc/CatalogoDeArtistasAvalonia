@@ -1,0 +1,272 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:CatalogoDeArtistas.ViewModel"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
+        Width="1024" Height="600"
+        x:Class="CatalogoDeArtistas.View.MainView"
+        Title="Catálogo de Artistas"
+        x:DataType="vm:MainViewModel">
+
+    <Grid Background="#74c360" ColumnDefinitions="200, *">
+        <!-- Barra lateral -->
+        <Border Padding="20" Background="#00804c">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Spacing="12">
+                    <Image Source="/Images/nota.ico" Width="75" />
+
+                    <Button HorizontalAlignment="Stretch" 
+                            Command="{Binding MostrarPrimerArtistaCommand}"
+                            IsEnabled="{Binding EnModoEdicion}">
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <Image Source="../../../../Images/casa.ico" Height="25"/>
+                            <Label>Inicio</Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch" Command="{Binding ModificarArtistaCommand}"
+                            IsEnabled="{Binding !EnModoEdicion}">
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <Image Source="../../../../Images/agregar.png" Height="25"/>
+                            <Label>Modificar</Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch" Command="{Binding AgregarArtistaCommand}" Background="LimeGreen"
+                            IsEnabled="{Binding !EnModoEdicion}">
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <Image Source="../../../../Images/agregar.png" Height="25"/>
+                            <Label>Agregar</Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch" Background="Red"
+                            Command="{Binding EliminarArtistaCommand}" IsEnabled="{Binding !EnModoEdicion}">
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <Image Source="../../../../Images/borrar.png" Height="25"/>
+                            <Label>Eliminar</Label>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Contenido principal -->
+        <StackPanel Grid.Column="1" Spacing="12" Margin="16">
+            <!-- Nombre principal -->
+            <TextBlock Text="{Binding Nombre}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"
+                       
+                       Margin="0,0,0,20" />
+            
+
+            <!-- Grid de Foto-informacion-Foto -->
+            <Grid ColumnDefinitions="75, *, 75">
+                
+                <Image Grid.Column="0" IsVisible="{Binding HayAnterior}" Source="{Binding FotoAnterior}" Opacity="{Binding OpacityFotoAnterior}">
+                    <Image.Effect>
+                        <DropShadowEffect Opacity="0.5"></DropShadowEffect> 
+                    </Image.Effect>
+                    <Image.RenderTransform>
+                        <TranslateTransform X="{Binding TranslateXAnterior}" />
+                    </Image.RenderTransform>
+                </Image>
+                
+                <!-- Columna del medio con la información del artista -->
+                <Grid Grid.Column="1" RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="*, *, 100" Margin="0,16,0,0">
+                    <!-- Información del artista -->
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="20" Opacity="{Binding OpacityFotoAnterior}">
+                        <StackPanel.RenderTransform>
+                                <TranslateTransform X="{Binding TranslateXAnterior}" />
+                        </StackPanel.RenderTransform>
+                        <!-- Nombre -->
+                        <TextBlock HorizontalAlignment="Center" FontSize="18" Text=""
+                               IsVisible="{Binding !EnModoEdicion}"
+                               FontWeight="Bold" >
+                            
+                        </TextBlock>
+
+                        <!-- Edad -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding Edad}"
+                                   IsVisible="{Binding !EnModoEdicion}">
+                            </TextBlock>
+                            <TextBlock Text=", "></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Nacionalidad}" FontSize="16"
+                                   IsVisible="{Binding !EnModoEdicion}">
+                            </TextBlock>
+                        </StackPanel>
+                    
+                        <!-- Genero -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Género: " IsVisible="{Binding !EnModoEdicion}"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Center"
+                                   Text="{Binding Genero}" IsVisible="{Binding !EnModoEdicion}">
+                            </TextBlock>
+                        </StackPanel>
+                    
+                        <!-- Canción -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Mejor canción: " IsVisible="{Binding !EnModoEdicion}"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding CancionMasEscuchada}"
+                                   FontSize="14" IsVisible="{Binding !EnModoEdicion}">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <!-- Imagen del artista -->
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                        <Image Source="{Binding Foto}" Stretch="Uniform"
+                               Margin="8" Height="250" Width="">
+                            <Image.Effect>
+                                <DropShadowEffect Opacity="0.7"></DropShadowEffect> 
+                            </Image.Effect>
+                            <Image.RenderTransform>
+                                <TranslateTransform X="{Binding TranslateXActual}" />
+                            </Image.RenderTransform>
+                        </Image>
+                        
+                        <!-- Botón para subir foto -->
+                        <Button  HorizontalAlignment="Center" Command="{Binding SubirFotoCommand}"
+                                 Background="ForestGreen"
+                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,0,0,0"
+                                 IsVisible="{Binding EnModoEdicion}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../../../../Images/subir.png" Height="26"></Image>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    
+                    
+                </Grid>
+                
+                
+                <!-- Grid ModoEdicion -->
+                <Grid Grid.Column="1" RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="*,*,100">
+                    <!-- Nombre-->
+                    <TextBox Grid.Row="0" Grid.Column="0" Watermark="Nombre" Text="{Binding Nombre}" Margin="8,8,0,0"
+                             FontSize="14" IsVisible="{Binding EnModoEdicion}" />
+
+                    <!-- Edad -->
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" >
+                        <Label Content="Edad: " VerticalAlignment="Center" IsVisible="{Binding EnModoEdicion}"
+                               Margin="10,0,0,0"></Label>
+                        <NumericUpDown Margin="8,8,0,0"
+                                       Minimum="0"
+                                       Maximum="120"
+                                       FontSize="14" IsVisible="{Binding EnModoEdicion}" Value="{Binding Edad}"
+                                       Increment="1"></NumericUpDown>
+                    </StackPanel>
+                
+                    <!-- Género -->
+                    <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" >
+                        <Label IsVisible="{Binding EnModoEdicion}" 
+                               VerticalAlignment="Center"
+                               Content="Género"
+                               Margin="10,0,0,0">
+                        </Label>
+                        <ComboBox Margin="8,8,0,0" FontSize="14"
+                                  IsVisible="{Binding EnModoEdicion}"
+                                  ItemsSource="{Binding ListaGenerosMusicales}"
+                                  SelectedItem="{Binding Genero}">
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Nacionalidad -->
+                    <TextBox Grid.Row="3" Grid.Column="0" Watermark="Nacionalidad" Text="{Binding Nacionalidad}"
+                             Margin="8,8,0,0" FontSize="14" IsVisible="{Binding EnModoEdicion}" />
+
+                    <!-- Canción Más Escuchada -->
+                    <TextBox Grid.Row="4" Grid.Column="0" Watermark="Canción" Text="{Binding CancionMasEscuchada}"
+                             Margin="8,8,0,0" FontSize="14" IsVisible="{Binding EnModoEdicion}" />
+
+                    <!-- Puntuación -->
+                    <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" >
+                        <Label Content="Puntuación: " VerticalAlignment="Center" IsVisible="{Binding EnModoEdicion}"
+                               Margin="10,0,0,0"></Label>
+                        <NumericUpDown Margin="8,8,0,0"
+                                       Minimum="0"
+                                       Maximum="10"
+                                       FontSize="14" IsVisible="{Binding EnModoEdicion}" Value="{Binding Puntuacion}"
+                                       ></NumericUpDown>
+                    </StackPanel>
+                    
+                </Grid>
+                
+                <Image Grid.Column="2" IsVisible="{Binding HaySiguiente}" Source="{Binding FotoSiguiente}" Opacity="{Binding OpacityFotoSiguiente}">
+                    <Image.Effect>
+                       <DropShadowEffect Opacity="0.5"></DropShadowEffect> 
+                    </Image.Effect>
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="{Binding TranslateXAnterior}" />
+                        </TransformGroup>
+                        
+                    </Image.RenderTransform>
+                </Image>
+                
+            </Grid>
+            
+            
+            
+            <!-- Botones de navegación -->
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!-- Botón para guardar nuevo artista -->
+                <Button Grid.Column="1" Grid.Row="1" Content="💾 Guardar" HorizontalAlignment="Center"
+                        Background="Brown"
+                        Command="{Binding GuardarArtistaCommand}"
+                        IsVisible="{Binding EnModoEdicion}" Margin="0,0,0,0" />
+
+                <!-- Botón Anterior -->
+                <Button Grid.Column="0" Grid.Row="1" 
+                        Background="Transparent"
+                        IsEnabled="{Binding HayAnterior}"
+                        Command="{Binding AnteriorArtistaCommand}" 
+                        IsVisible="{Binding !EnModoEdicion}" >
+                    <Image Source="/Images/atras.png" Width="50" Height="50"
+                           IsEnabled="{Binding HayAnterior}"/>
+                </Button>
+
+                <!-- ProgressBar -->
+                <ProgressBar Grid.Column="1" Grid.Row="1" Name="MiProgressBar"
+                             Value="{Binding Puntuacion}"
+                             Maximum="10"
+                             ShowProgressText="False"
+                             Height="25"
+                             HorizontalAlignment="Center"
+                             IsVisible="{Binding !EnModoEdicion}"
+                             >
+                </ProgressBar>
+
+                <!-- Texto sobre el ProgressBar -->
+                <TextBlock  Grid.Row="1" Grid.Column="1" Text="Puntuación"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            IsVisible="{Binding !EnModoEdicion}" />
+                
+                <!-- Botón Siguiente -->
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" 
+                        Background="Transparent"
+                        Command="{Binding SiguienteArtistaCommand}" 
+                        IsVisible="{Binding !EnModoEdicion}"
+                        IsEnabled="{Binding HaySiguiente}">
+                    <Image Source="/Images/alante.png" Width="50" Height="50"/>
+                </Button>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Window>

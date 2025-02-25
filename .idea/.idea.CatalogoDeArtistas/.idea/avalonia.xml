@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="CatalogoDeArtistas/App.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/MainWindow.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/Styles/AgregarView.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/Styles/App.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/Styles/AppStyles.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/Styles/InicioView.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/View/AgregarView.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/View/InicioView.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/View/MainView.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+        <entry key="CatalogoDeArtistas/ViewModel/.axaml" value="CatalogoDeArtistas/CatalogoDeArtistas.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

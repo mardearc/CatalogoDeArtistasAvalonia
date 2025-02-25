@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\nota.ico" />
+      <AvaloniaResource Include="bin\Debug\net8.0\Images\default.jpg" />
+      <AvaloniaResource Include="Images\nota.ico" />
+      <None Remove="Images\casa.ico" />
+      <AvaloniaResource Include="Images\casa.ico" />
+      <None Remove="Images\default.jpg" />
+      <AvaloniaResource Include="Images\atras.png" />
+      <None Remove="Images\atras.png" />
+      <AvaloniaResource Include="Images\atras.png" />
+      <None Remove="Images\alante.png" />
+      <AvaloniaResource Include="Images\alante.png" />
+      <None Remove="Images\borrar.png" />
+      <AvaloniaResource Include="Images\borrar.png" />
+      <None Remove="Images\agregar.png" />
+      <AvaloniaResource Include="Images\agregar.png" />
+      <None Remove="Images\subir.png" />
+      <AvaloniaResource Include="Images\subir.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="View\MainView.axaml.cs">
+        <DependentUpon>MainView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>

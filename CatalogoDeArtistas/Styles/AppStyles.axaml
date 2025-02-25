@@ -1,0 +1,39 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="10">
+            <!-- Add Controls for Previewer Here -->
+            <Button Content="hola"></Button>
+        </Border>
+        <TextBlock> Hola</TextBlock>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+
+    <Style Selector="Button">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Background" Value="{DynamicResource BackgroundButton}"></Setter>
+    </Style>
+
+    <Style Selector="Button:pointerover">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+    </Style>
+
+
+    <Style Selector="ProgressBar /template/ Border#PART_Track">
+        <Setter Property="Background" Value="{DynamicResource ProgressBarTrackBackground}" /> <!-- Color de fondo -->
+    </Style>
+    <Style Selector="ProgressBar /template/ Border#PART_Indicator">
+        <Setter Property="Background" Value="{DynamicResource ProgressBarIndicatorBackground}" />
+        <!-- Color de la barra de progreso -->
+    </Style>
+
+
+</Styles>
